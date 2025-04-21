@@ -99,10 +99,22 @@ Due to hardware limitations (RAM/CPU constraints), only **quantized** versions o
 
 ---
 
+## 💡 RAG Pipeline Attempt
+
+A Retrieval-Augmented Generation (RAG) pipeline was tested to enhance financial question answering by leveraging external information. The pipeline includes two main components: retrieval and generation.
+
+### Technical Details:
+- **Retrieval System**: Uses **Dense Passage Retrieval (DPR)** with **DPRQuestionEncoder** and **DPRContextEncoder** to encode queries and passages into dense vectors, selecting the most relevant documents using cosine similarity.
+  
+- **Generation Model**: A **generative language model** (e.g., GPT, BART, T5) uses the retrieved passages and query to generate answers.
+
+Despite its potential, the integration was challenging due to limited resources on Google Colab. The retrieval process was computationally expensive and time-consuming, especially for fine-tuning on financial data, and didn't improve accuracy as expected. As a result, the RAG pipeline was deprioritized in favor of more reliable methods with quantized LLMs, which performed better for the task.
+
+---
+
 ## ⚙️ Environment Notes
 
 - Google Colab was the primary compute environment.
 - Quantized `.gguf` models were used to reduce memory usage.
 - Fine-tuning was not feasible for most models due to quantization constraints.
 
----
