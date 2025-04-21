@@ -130,3 +130,39 @@ if __name__ == "__main__":
     results_df['response'] = results_df['response'].apply(extract_final_answer)
     results_df = force_int(results_df)
     results_df.to_csv("predictions.csv", index=False)
+
+# Assuming results_df is a pandas DataFrame with a 'response' column
+results_df['response'] = results_df['response'].apply(FinancePredictor.extract_final_answer)
+results_df = FinancePredictor.force_int(results_df)
+results_df.to_csv("predictions.csv", index=False)
+
+
+# Cleaning the 'answer' column in filtered_df
+def clean_answer_column(df):
+    # Remove symbols like $ or % and keep only numerical values
+    df['answer'] = df['answer'].apply(lambda x: re.sub(r'[^\d\.\-]', '', str(x)))
+    # Convert the cleaned values to numeric, handling errors
+    df['answer'] = pd.to_numeric(df['answer'], errors='coerce')
+    return df
+
+# Apply the cleaning function to filtered_df
+new_df = clean_answer_column(filtered_df)
+
+# Check the cleaned DataFrame
+print(filtered_df[['answer']].head())
+
+# Rename the 'answer' column in filtered_df to 'actual_answer'
+filtered_df = filtered_df.rename(columns={'answer': 'actual_answer'})
+
+# Merge filtered_df['financebench_id', 'actual_answer'] with results_df on 'financebench_id'
+results_df = results_df.merge(filtered_df[['financebench_id', 'actual_answer']], on='financebench_id', how='left')
+
+# Specify the output directory and ensure it exists
+output_dir = r"C:\Users\aisha\Downloads"
+os.makedirs(output_dir, exist_ok=True)  # Not strictly necessary since Downloads should already exist
+
+# Save the DataFrame to the specified path
+file_path = os.path.join(output_dir, "Llama-3.2-1B-Instruct-Q6_K_L.gguf.csv")
+results_df.to_csv(file_path, index=False)
+
+print(f"File saved successfully to: {file_path}")
