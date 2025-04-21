@@ -82,13 +82,20 @@ Due to hardware limitations (RAM/CPU constraints), only **quantized** versions o
 
 ## 📈 Model Performance
 
-| Model | Accuracy | Residual | Mean Absolute Error |
-|-------|----------|----------|----------------------|
-| **LLaMA 3.2–1B Instruct (Q6_k_L.gguf)** | 6.98% | 1094 | 2435 |
-| **BLING-1B-0.1** | 9.68% | 3380 | 4652 |
-| **TinyLLaMA-1.1B-1T OpenOrca** | **13.04%** | 1859 | 2642 |
+| Model | Accuracy |
+|-------|----------|
+| **LLaMA 3.2–1B Instruct (Q6_k_L.gguf)** | 6.98% |
+| **BLING-1B-0.1** | 9.68% |
+| **TinyLLaMA-1.1B-1T OpenOrca** | **13.04%** |
 
 > Note: Performance metrics are computed using custom evaluation scripts over the FinanceBench dataset. Accuracy is calculated based on exact matches for multiple-choice and numerical responses.
+
+### 📉 Why Are Accuracies Low?
+
+- **Small, Quantized Models**: Due to Colab constraints, all models were under 2B parameters and quantized, reducing their ability to reason over complex financial data.
+- **No Fine-Tuning or RAG**: Models were used off-the-shelf without domain-specific fine-tuning or retrieval augmentation, limiting performance on specialized tasks.
+- **Complexity of FinanceBench**: The dataset demands multi-hop reasoning, numerical precision, and financial literacy—challenging even for larger models.
+- **Strict Evaluation Metric**: Exact match scoring penalizes near-correct answers, especially in numerical cases with minor rounding differences.
 
 ---
 
