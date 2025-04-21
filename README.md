@@ -17,6 +17,46 @@ This challenge explores multiple modeling approaches—including **retrieval-aug
 
 ---
 
+## 📂 Dataset
+
+All experiments were conducted on the [**FinanceBench**](https://huggingface.co/datasets/PatronusAI/financebench) dataset, a benchmark specifically designed to test the reasoning capabilities of AI models in complex financial domains. 
+
+FinanceBench includes **expert-annotated** question-answer (QA) pairs sourced from **earnings call transcripts** of publicly traded companies. Each QA pair is structured around a specific **financial task** and labeled with:
+
+- **Context Type**: 
+  - `qa_text`: Questions based on long-form transcripts
+  - `qa_structure`: Structured data-based questions
+  - `qa_text+structure`: Combined context
+- **Answer Format**:
+  - `multiple_choice`: Answers are among predefined choices
+  - `numerical`: Answers are precise numerical values
+
+The dataset challenges models to perform a wide range of reasoning tasks, including:
+
+- **Numerical Reasoning**: Interpreting and calculating metrics from financial discussions  
+- **Categorical Inference**: Selecting correct qualitative insights
+- **Contextual Understanding**: Deriving answers from dense financial text
+
+Due to its focus on **real-world financial reporting**, FinanceBench serves as a rigorous testbed for evaluating financial language models in enterprise-grade applications.
+
+---
+
+## 🛠 Tools & Platforms Used
+
+| Component                     | Description                                                                 |
+|------------------------------|-----------------------------------------------------------------------------|
+| **Python**                   | Main programming language.                                                  |
+| **Pandas**                   | Data manipulation and analysis.                                             |
+| **NumPy**                    | Numerical operations and data conversion.                                   |
+| **Hugging Face Hub**         | Authentication and model access (`transformers`, `huggingface_hub`).        |
+| **LLaMA via llama.cpp**      | Lightweight, quantized model inference (`llama_cpp`).                       |
+| **Transformers (HF)**        | For loading and generating text with Hugging Face models.                   |
+| **Torch (PyTorch)**          | Backend for HF model inference.                                             |
+| **Regular Expressions (re)** | Extracting numerical answers from model outputs.                           |
+| **Jupyter/VS Code**          | Recommended environments for running and experimenting with this pipeline. |
+
+---
+
 ## 🧠 Models Evaluated
 
 Due to hardware limitations (RAM/CPU constraints), only **quantized** versions of LLMs were used. Larger models such as LLaMA 3.1–8B were attempted but could not be deployed in Colab due to resource exhaustion.
@@ -30,6 +70,16 @@ Due to hardware limitations (RAM/CPU constraints), only **quantized** versions o
 
 ---
 
+## 🧪 Techniques & Methodology
+
+- **Photometric Inference**: Using LLaMA to answer questions based on prompt-driven inference.
+- **Custom Prompt Engineering**: Carefully designed system prompts guide the model to return structured, numerical answers.
+- **Token Sampling**: Uses `top_p` and `temperature` to control creativity and focus of language generation.
+- **Chunked Data Processing**: Supports CSV splitting for batch evaluation.
+- **Postprocessing & Evaluation**: Cleans responses, extracts final numbers, and evaluates them against ground truth.
+
+---
+
 ## 📈 Model Performance
 
 | Model | Accuracy | Residual | Mean Absolute Error |
@@ -39,12 +89,6 @@ Due to hardware limitations (RAM/CPU constraints), only **quantized** versions o
 | **TinyLLaMA-1.1B-1T OpenOrca** | **13.04%** | 1859 | 2642 |
 
 > Note: Performance metrics are computed using custom evaluation scripts over the FinanceBench dataset. Accuracy is calculated based on exact matches for multiple-choice and numerical responses.
-
----
-
-## 📂 Dataset
-
-All experiments were conducted on the [**FinanceBench**](https://huggingface.co/datasets/PatronusAI/financebench) dataset, which contains real-world, finance-specific QA pairs categorized by context types and answer formats.
 
 ---
 
