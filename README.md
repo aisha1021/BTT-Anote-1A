@@ -118,3 +118,32 @@ Despite its potential, the integration was challenging due to limited resources 
 - Quantized `.gguf` models were used to reduce memory usage.
 - Fine-tuning was not feasible for most models due to quantization constraints.
 
+---
+
+## 🔮 Future Work
+
+Looking ahead, several areas can be explored to further improve the performance and efficiency of the Anote BTT 1A Challenge system:
+
+1. **Model Expansion and Fine-Tuning**:
+   - **Fine-Tune Larger Models**: Explore fine-tuning larger models on domain-specific financial data to improve their reasoning capabilities.
+   - **De-Quantize Models**: Using higher-capacity models without quantization may allow for better performance, though it may require access to more powerful hardware beyond Colab.
+
+2. **RAG Pipeline Optimization**:
+   - **Efficient Retrieval**: Investigate optimizing the Dense Passage Retrieval system to reduce computational cost, potentially by employing more efficient encoding and retrieval techniques.
+   - **Custom Knowledge Base**: Build a more specialized knowledge base for financial queries to improve the relevance and accuracy of the retrieved passages.
+
+3. **Evaluation Improvements**:
+   - **Loosening Evaluation Criteria**: Experiment with alternative evaluation metrics that allow for near-correct answers in numerical cases (e.g., allowing for slight rounding differences).
+   - **Cross-Validation with Other Datasets**: Test models on additional financial benchmarks to ensure generalization across different domains.
+
+4. **Multimodal Approaches**:
+   - **Incorporating Structured Data**: Incorporate structured financial data such as stock prices, financial statements, and other real-time market data to improve answer accuracy, especially for numerical questions.
+   - **Visual Reasoning**: Experiment with integrating visual models that can analyze financial reports or charts, expanding the types of queries the model can handle.
+
+5. **Scalability and Resource Efficiency**:
+   - **Deploy on Dedicated Infrastructure**: Transition the project to cloud platforms with better resources (e.g., AWS, Google Cloud) for running larger models and conducting fine-tuning, overcoming the limitations of Google Colab.
+   - **Optimization for Edge Devices**: Investigate lightweight model deployment options for real-time applications on mobile devices or other constrained environments.
+
+By focusing on these areas, the project can evolve to better handle complex financial queries and achieve higher performance on the FinanceBench and other benchmarks.
+
+---
